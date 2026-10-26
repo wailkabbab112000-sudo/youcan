@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyStore COD Store & Admin Dashboard</title>
+    <meta name="description" content="Plateforme e-commerce Cash On Delivery style MyStore avec page produit optimisée, formulaire de commande direct (Nom, Tél, Ville), dashboard admin et intégration Google Sheets." />
+    <meta property="og:title" content="MyStore COD Store & Admin Dashboard" />
+    <meta property="og:description" content="Plateforme e-commerce Cash On Delivery style MyStore avec page produit optimisée, formulaire de commande direct (Nom, Tél, Ville), dashboard admin et intégration Google Sheets." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="/store-logo.png">
+    <link rel="preload" as="image" href="/products/honey-1.webp" type="image/webp">
+    <script>
+      (function() {
+        try {
+          var raw = localStorage.getItem('mystore_cod_settings_v1');
+          var c = '#e11d48';
+          if (raw) {
+            var s = JSON.parse(raw);
+            if (s && s.themeColor) c = s.themeColor;
+          }
+          function applyColor(hex) {
+            if (!hex || hex.charAt(0) !== '#') return;
+            var style = document.getElementById('dynamic-store-theme');
+            if (!style) {
+              style = document.createElement('style');
+              style.id = 'dynamic-store-theme';
+              document.head.appendChild(style);
+            }
+            style.innerHTML = ':root { --store-primary: ' + hex + '; } .store-primary-bg { background-color: ' + hex + ' !important; } .store-primary-text { color: ' + hex + ' !important; } .store-primary-border { border-color: ' + hex + ' !important; }';
+          }
+          applyColor(c);
+
+          // Fast parallel prefetch from Supabase REST endpoint so even a brand new PC receives any remote custom color immediately
+          fetch('https://czsaecajcbrnuoihbjad.supabase.co/rest/v1/store_settings?select=theme_color,settings_data&order=updated_at.desc&limit=1', {
+            headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6c2FlY2FqY2JybnVvaWhiamFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkyOTI2NzAsImV4cCI6MjEwNDg2ODY3MH0.Cs-Ip43IDCHaXWoWABe9lIdNcK7h6O4jRS2J-oO10Cc' }
+          }).then(function(r) { return r.json(); }).then(function(rows) {
+            if (rows && rows[0]) {
+              var tc = rows[0].theme_color || (rows[0].settings_data && rows[0].settings_data.themeColor);
+              if (tc && tc !== c) {
+                applyColor(tc);
+                if (rows[0].settings_data) {
+                  var updated = rows[0].settings_data;
+                  updated.themeColor = tc;
+                  localStorage.setItem('mystore_cod_settings_v1', JSON.stringify(updated));
+                }
+              }
+            }
+          }).catch(function() {});
+        } catch(e) {}
+      })();
+    </script>
+  </head>
+  <body class="font-sans antialiased text-gray-900 bg-gray-50">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

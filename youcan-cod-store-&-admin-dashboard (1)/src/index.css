@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', 'Cairo', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Force correct font mapping and fix letter-spacing for Arabic (RTL) */
+[dir="rtl"],
+[dir="rtl"] body,
+[dir="rtl"] .font-sans,
+[dir="rtl"] * {
+  /* Put Latin font FIRST so numbers/English use it, Arabic falls back to Tajawal */
+  font-family: 'Plus Jakarta Sans', 'Tajawal', system-ui, sans-serif !important;
+  letter-spacing: normal !important;
+}
+
+/* Custom animations for COD conversion booster */
+@keyframes soft-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 14px 0 var(--pulse-shadow, rgba(22, 163, 74, 0.39));
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px 0 var(--pulse-shadow-hover, rgba(22, 163, 74, 0.55));
+  }
+}
+
+.pulse-cta {
+  animation: soft-pulse 2s infinite ease-in-out;
+}
+
+/* Rich Description Styles for COD Marketing Landing Pages */
+.rich-description-area img {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 0.75rem;
+  margin: 1rem 0 !important;
+  display: block !important;
+  object-fit: cover;
+}
+
+.rich-description-area .editor-image-block {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 1rem 0 !important;
+  display: block !important;
+  text-align: center;
+}
+
+.rich-description-area .editor-image-block img {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  border-radius: 0.75rem !important;
+  box-shadow: none !important;
+}
+
+.rich-description-area h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #111827;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.rich-description-area h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-top: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.rich-description-area p {
+  margin-bottom: 0.5rem;
+  line-height: 1.65;
+}
+
+.rich-description-area ul {
+  list-style-type: disc;
+  padding-inline-start: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.rich-description-area ol {
+  list-style-type: decimal;
+  padding-inline-start: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.rich-description-area mark {
+  background-color: #fef08a;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.rich-description-area:empty:before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  pointer-events: none;
+  display: block;
+}
+
+.editor-image-block {
+  transition: all 0.2s ease;
+  position: relative;
+  display: block;
+}
+
+.editor-image-block.selected-image-active,
+.selected-image-active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+

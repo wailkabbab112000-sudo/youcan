@@ -1,0 +1,6 @@
+{
+  "name": "MyStore COD Store & Admin Dashboard",
+  "description": "Plateforme e-commerce Cash On Delivery avec page produit optimisée, formulaire de commande direct (Nom, Tél, Ville), dashboard admin et intégration Google Sheets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
